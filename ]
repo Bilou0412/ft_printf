@@ -1,0 +1,38 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bmoudach <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/17 12:49:29 by bmoudach          #+#    #+#             */
+/*   Updated: 2023/05/17 16:47:28 by bmoudach         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+#include"../libft/libft.h"
+#include<stdarg.h>
+
+static	int	check_str(const char *str)
+{
+	while (*str)
+	{
+		str = ft_strchr(str, '%');
+		if (!str)
+			return (0);
+		str++;
+		if (!ft_strchr("cspdiuxX%", *str))
+			return (1);
+	}
+	return (1);
+}
+
+int	ft_printf(const char *str)
+{
+	if (check_str(str))
+		return (0);
+}
+
+int	main(void)
+{
+
+}
