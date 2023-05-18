@@ -42,6 +42,7 @@ void	ft_distrib_arg(va_list args, const char *str, int *len)
 		*len += ft_puthexa(va_arg(args, unsigned int),  str);
 	else if(*str == '%')
 		*len += write(1, '%', 1);
+	return (str + 1);
 }
 
 int	ft_printf(const char *str, ...)
