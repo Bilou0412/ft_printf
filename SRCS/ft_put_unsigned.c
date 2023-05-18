@@ -1,33 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putptr.c                                        :+:      :+:    :+:   */
+/*   ft_put_unsigned.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmoudach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/18 16:01:17 by bmoudach          #+#    #+#             */
-/*   Updated: 2023/05/18 18:41:08 by bmoudach         ###   ########.fr       */
+/*   Created: 2023/05/18 21:10:01 by bmoudach          #+#    #+#             */
+/*   Updated: 2023/05/18 21:43:04 by bmoudach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include"../include/ft_printf.h"
 
-int	ft_putptr(const void *ptr)
+static int	len_nbr(unsigned int n)
 {
-	unsigned long long address = (unsigned long long)ptr;
-	int num_chars = 0;
+	int	i;
 
-	if (address == 0)
-		num_chars = 1;
-	else
+	i = 0;
+	while (n >= 1)
 	{
-		while (address != 0)
-		{
-			address /= 16;
-			num_chars++;
-		}
+		n = n / 10;
+		i++;
 	}
-	write(1, "0x", 2);
-	write(1, (char *)&ptr, sizeof(void *));
-	return num_chars + 2;
+	return (i);
+}
+
+int	ft_put_unsigned(unsigned int n)
+{
+	unsigned int		nb;
+	char				nbr;
+
+	nb = n;
+	nbr = nb + '0';
+	if (nb > 9)
+	{
+		ft_put_unsigned(nb / 10);
+		ft_put_unsigned(nb % 10);
+	}
+	if (nb <= 9)
+	{
+		write(1, &nbr, 1);
+	}
+	return (len_nbr(n));
 }

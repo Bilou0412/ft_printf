@@ -6,7 +6,7 @@
 /*   By: bmoudach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 12:49:29 by bmoudach          #+#    #+#             */
-/*   Updated: 2023/05/18 17:51:25 by bmoudach         ###   ########.fr       */
+/*   Updated: 2023/05/18 21:44:11 by bmoudach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include"include/ft_printf.h"
@@ -35,14 +35,14 @@ static const char	*ft_distrib_arg(va_list args, const char *str, int *len)
 		*len += ft_putchar(va_arg(args, int));
 	else if (*str == 's')
 		*len += ft_putstr(va_arg(args, char *));
-	/*	else if (*str == 'p')
-	 *len += ft_putptr(va_arg(args, unsigned long long));
-	 else if (*str == 'u')
-	 *len += ft_put_unsigned(va_arg(args, unsigned int));
-	 else if (*str == 'x' || *str == 'X')
-	 *len += ft_puthexa(va_arg(args, unsigned int), str);
-	 else if (*str == '%')
-	 *len += write(1, "%", 1);*/
+//	else if (*str == 'p')
+//	*len += ft_putptr(va_arg(args, const void *));
+	else if (*str == 'u')
+		*len += ft_put_unsigned(va_arg(args, unsigned int));
+//	else if (*str == 'x' || *str == 'X')
+//		*len += ft_puthexa(va_arg(args, unsigned int), str);
+	else if (*str == '%')
+		*len += write(1, "%", 1);
 	return (str + 1);
 }
 
@@ -68,5 +68,8 @@ int	ft_printf(const char *str, ...)
 
 int	main(void)
 {
-	printf("\n%d", ft_printf("le nombre est :%d%d", 23, 45));
+	unsigned int	p;
+
+	p = 32434232;
+	printf("\n%d", ft_printf("le nombre est :%u", p));
 }
