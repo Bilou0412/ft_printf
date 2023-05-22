@@ -1,27 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putptr.c                                        :+:      :+:    :+:   */
+/*   ft_puthexa.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmoudach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/18 16:01:17 by bmoudach          #+#    #+#             */
-/*   Updated: 2023/05/22 16:50:17 by bmoudach         ###   ########.fr       */
+/*   Created: 2023/05/22 09:56:32 by bmoudach          #+#    #+#             */
+/*   Updated: 2023/05/22 15:12:55 by bmoudach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include"../include/ft_printf.h"
 
-int	*ft_putptr(unsigned long nb, int *len)
+int	*ft_puthexa(unsigned int nb, char c, int *len)
 {
 	char		*base_lowcaps;
+	char		*base_uppercase;
 
 	base_lowcaps = "0123456789abcdef";
+	base_uppercase = "0123456789ABCDEF";
 	if (nb > 15)
 	{
-		ft_putptr(nb / 16, len);
-		ft_putptr(nb % 16, len);
+		ft_puthexa(nb / 16, c, len);
+		ft_puthexa(nb % 16, c, len);
 	}
 	if (nb < 16)
-		*len += write(1, &base_lowcaps[nb], 1);
+	{
+		if (c == 'x')
+			*len += write(1, &base_lowcaps[nb], 1);
+		else
+		{
+			*len += write(1, &base_uppercase[nb], 1);
+		}
+	}
 	return (len);
 }
