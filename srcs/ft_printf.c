@@ -6,10 +6,10 @@
 /*   By: bmoudach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 12:49:29 by bmoudach          #+#    #+#             */
-/*   Updated: 2023/05/22 16:53:10 by bmoudach         ###   ########.fr       */
+/*   Updated: 2023/05/22 18:36:55 by bmoudach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include"include/ft_printf.h"
+#include"../include/ft_printf.h"
 #include<stdarg.h>
 #include<stdio.h>
 
@@ -69,11 +69,11 @@ int	ft_printf(const char *str, ...)
 	va_end(args);
 }
 
-int	main(void)
+/*int	main(void)
 {
 	unsigned int	p;
 
 	p = 32434232;
 	printf("\n%d", ft_printf("le nombre est :%p", &p));
 	printf("%p", &p);
-}
+}*/
