@@ -6,7 +6,7 @@
 /*   By: bmoudach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 12:49:29 by bmoudach          #+#    #+#             */
-/*   Updated: 2023/05/22 18:36:55 by bmoudach         ###   ########.fr       */
+/*   Updated: 2023/05/23 14:33:06 by bmoudach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include"../include/ft_printf.h"
@@ -15,33 +15,35 @@
 
 static	int	check_str(const char *str)
 {
-	while (*str)
+	int			i;
+	char		*verif;
+
+	i = 0;
+	verif = "cspdiuxX%";
+	while (str[i])
 	{
-		str = ft_strchr(str, '%');
-		if (!str)
-			return (0);
-		str++;
-		if (!ft_strchr("cspdiuxX%", *str))
+		if (str[i] == '%' && ft_strchr(verif, str[i + 1]))
+			i = i + 2;
+		else if (str[i] != '%')
+			i++;
+		else
 			return (1);
 	}
-	return (1);
+	return (0);
 }
 
 static const char	*ft_distrib_arg(va_list args, const char *str, int *len)
 {
 	if (*str == 'd' || *str == 'i')
-		*len += ft_putnbr(va_arg(args, int));
+		ft_putnbr(va_arg(args, int), len);
 	else if (*str == 'c')
 		*len += ft_putchar(va_arg(args, int));
 	else if (*str == 's')
 		*len += ft_putstr(va_arg(args, char *));
 	else if (*str == 'p')
-	{
-		write(1, "0x", 2);
 		ft_putptr(va_arg(args, unsigned long), len);
-	}
 	else if (*str == 'u')
-		*len += ft_put_unsigned(va_arg(args, unsigned int));
+		ft_put_unsigned(va_arg(args, unsigned int), len);
 	else if (*str == 'x' || *str == 'X')
 		ft_puthexa(va_arg(args, unsigned int), *str, len);
 	else if (*str == '%')
@@ -55,6 +57,8 @@ int	ft_printf(const char *str, ...)
 	int		len;
 
 	len = 0;
+	if (str == NULL)
+		return (-1);
 	if (check_str(str))
 		return (0);
 	va_start(args, str);
@@ -68,12 +72,3 @@ int	ft_printf(const char *str, ...)
 	return (len);
 	va_end(args);
 }
-
-/*int	main(void)
-{
-	unsigned int	p;
-
-	p = 32434232;
-	printf("\n%d", ft_printf("le nombre est :%p", &p));
-	printf("%p", &p);
-}*/

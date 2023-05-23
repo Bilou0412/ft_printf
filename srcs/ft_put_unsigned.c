@@ -6,39 +6,21 @@
 /*   By: bmoudach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 21:10:01 by bmoudach          #+#    #+#             */
-/*   Updated: 2023/05/18 21:43:04 by bmoudach         ###   ########.fr       */
+/*   Updated: 2023/05/23 14:32:12 by bmoudach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include"../include/ft_printf.h"
 
-static int	len_nbr(unsigned int n)
+int	ft_put_unsigned(unsigned int nb, int *len)
 {
-	int	i;
-
-	i = 0;
-	while (n >= 1)
-	{
-		n = n / 10;
-		i++;
-	}
-	return (i);
-}
-
-int	ft_put_unsigned(unsigned int n)
-{
-	unsigned int		nb;
-	char				nbr;
-
-	nb = n;
-	nbr = nb + '0';
 	if (nb > 9)
 	{
-		ft_put_unsigned(nb / 10);
-		ft_put_unsigned(nb % 10);
+		ft_put_unsigned(nb / 10, len);
+		ft_put_unsigned(nb % 10, len);
 	}
 	if (nb <= 9)
 	{
-		write(1, &nbr, 1);
+		*len += ft_putchar(nb + '0');
 	}
-	return (len_nbr(n));
+	return (0);
 }
